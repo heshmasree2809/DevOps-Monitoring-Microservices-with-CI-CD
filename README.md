@@ -1,186 +1,99 @@
-# DevOps Monitoring Microservices with CI/CD
+# DevOpsPulse — DevOps Monitoring Microservices with CI/CD
 
-## **Project Overview**
+## Overview
 
-This project is a **multi-language microservices system** designed to showcase expertise in **cloud-native development, CI/CD automation, and DevOps best practices**. It integrates different programming languages, databases, and caching mechanisms to simulate real-world DevOps monitoring applications.
+DevOpsPulse is a DevOps monitoring project designed to demonstrate a microservices-based architecture for collecting metrics, managing logs, generating alerts, and visualizing monitoring data. It brings together backend services, databases, messaging systems, containerization, and CI/CD tools to explore modern DevOps practices.
 
-The project follows a **monorepo** structure with **GitHub as the main repository**, utilizing **GitHub Actions, GitLab CI/CD, and Jenkins** to demonstrate **multi-repository orchestration and deployment**.
+The project focuses on modular service design, monitoring workflows, automated build and deployment pipelines, and scalable infrastructure.
 
----
+## Key Features
 
-## **Project Objectives**
+* **Microservices Architecture:** Separates monitoring functionality into independent services.
+* **Metrics Monitoring:** Provides a foundation for collecting and managing application metrics.
+* **Centralized Logging:** Organizes application logs for monitoring and troubleshooting.
+* **Alert Management:** Supports an alerting service for monitoring events.
+* **Visualization Dashboard:** Provides a frontend structure for displaying monitoring information.
+* **API Gateway:** Uses Nginx as an entry point for routing requests.
+* **Message-Based Communication:** Includes messaging technologies for communication between services.
+* **CI/CD Integration:** Explores automated workflows using GitHub Actions, GitLab CI/CD, and Jenkins.
+* **Containerization:** Uses Docker to package application components.
+* **Orchestration:** Includes Kubernetes and Argo CD in the deployment workflow.
 
-- Develop a **monorepo-based microservices system** with multiple languages.
-- Implement **CI/CD pipelines** tailored for each microservice.
-- Showcase real-world **monitoring, logging, and alerting mechanisms**.
-- Deploy services using **Docker** and orchestrate them efficiently.
-- Ensure **scalability, security, and reliability** across all services.
+## Technology Stack
 
----
+| Category                 | Technologies                                 |
+| ------------------------ | -------------------------------------------- |
+| Backend Services         | Python, FastAPI, Go, Fiber, Node.js, Express |
+| Databases and Caching    | PostgreSQL, MongoDB, Redis                   |
+| Frontend                 | JavaScript, HTML, CSS                        |
+| API Gateway              | Nginx                                        |
+| Messaging                | RabbitMQ, Apache Kafka                       |
+| DevOps and CI/CD         | GitHub Actions, GitLab CI/CD, Jenkins        |
+| Containers               | Docker                                       |
+| Orchestration and GitOps | Kubernetes, Argo CD                          |
+| Version Control          | Git, GitHub                                  |
 
-## **Architecture Overview**
+*The technologies listed represent the project's architecture and tooling; individual components may require additional configuration to run.*
 
-The system consists of the following microservices:
+## Project Structure
 
-| **Service**          | **Language**   | **Framework** | **Database** |
-| -------------------- | -------------- | ------------- | ------------ |
-| **Metrics Service**  | Python         | FastAPI       | PostgreSQL   |
-| **Logs Service**     | Golang         | Fiber         | MongoDB      |
-| **Alerting Service** | Node.js        | Express.js    | Redis        |
-| **Visualization UI** | Java           | Spring Boot   | -            |
-| **API Gateway**      | Nginx          | -             | -            |
-| **Message Broker**   | RabbitMQ/Kafka | -             | -            |
-
-Each microservice is **independent** but communicates with others via **REST APIs, WebSockets, and Message Queues**.
-
----
-
-## **Tech Stack**
-
-- **Programming Languages**: Python, Java, Node.js, Golang
-- **Frameworks**: FastAPI, Spring Boot, Express.js, Fiber
-- **Databases**: PostgreSQL, MongoDB, Redis
-- **API Gateway**: Nginx
-- **Messaging**: RabbitMQ/Kafka
-- **CI/CD Tools**: GitHub Actions, GitLab CI/CD, Jenkins
-- **Containerization**: Docker
-- **Orchestration**: Kubernetes with ArgoCD
-
----
-
-## **Monorepo Structure**
-
-```
-Devops-Monitoring-Microservices/
-│
-├── metrics-service/ (FastAPI)
-├── logs-service/ (Fiber)
-├── alerting-service/ (Express.js)
-│   ├── .gitlab-ci.yml (Used only for alerting-service)
-├── visualization-ui/ (Spring Boot)
-│   ├── Jenkinsfile 
-│
-├── manifests/
-│   ├── metrics-service.yaml
-│   ├── logs-service.yaml
-│   ├── alerting-service.yaml
-│   ├── visualization-frontend.yaml
-│   ├── visualization-backend.yaml
-│
-├── api-gateway/
-│   ├── nginx/
-│
-├── message-broker/
-│   ├── rabbitmq/
-│   ├── kafka/
-│
-├── .github/workflows/ 
-│    ├── gitlab-push.yml (Push codes to gitlab)
-│    ├── metrics-service.yml 
-│    ├── logs-service.yml 
-│
-├── .gitlab-ci.yml (Used only for alerting-service)
-├── jenkins/
+```text
+DevOpsPulse/
+├── services/
+│   ├── metrics-service/
+│   ├── logs-service/
+│   ├── alerting-service/
+│   └── visualization-ui/
+├── gateway/
 ├── docker-compose.yml
+├── .github/
+│   └── workflows/
 └── README.md
 ```
 
-Each microservice contains its own **Dockerfile** and individual pipeline script, allowing **independent CI/CD execution**.
+*The directory structure above is a conceptual overview. Actual folders and configuration files may vary in the repository.*
 
----
+## Architecture
 
-## **Service Overview**
+The project follows a modular architecture in which monitoring components handle separate responsibilities.
 
-| **Service**          | **Language**   | **CI Platform**   |
-|----------------------|---------------|------------------|
-| Metrics Service      | Python        | GitHub Actions  |
-| Logs Service (Mongodb)       | Golang        | GitHub Actions  |
-| Alerting Service (Redis)   | Node.js       | GitLab CI/CD    |
-| Visualization UI    | Java          | Jenkins         |
+1. **Metrics Service:** Handles application metric collection and processing.
+2. **Logs Service:** Manages application log data.
+3. **Alerting Service:** Handles alert-related operations.
+4. **Visualization UI:** Provides an interface for presenting monitoring information.
+5. **Nginx Gateway:** Serves as a gateway for incoming requests.
+6. **Messaging Layer:** Uses messaging technologies to support communication between services.
+7. **CI/CD Pipeline:** Supports automation of build, testing, and deployment workflows.
+8. **Deployment Infrastructure:** Explores Docker, Kubernetes, and GitOps-based deployment practices.
 
----
+## Getting Started
 
-## **CI/CD Strategy**
+### Prerequisites
 
-This project uses **GitHub as the main repository**, with **GitHub Actions, GitLab CI/CD, and Jenkins** for automated deployment:
+Install the tools required for the components you intend to run:
 
-- **GitHub Actions** → Primary CI/CD platform handling **metrics-service, logs-service, and Kubernetes manifests**.
-- **GitLab CI/CD** → Only used for **alerting-service** (Node.js).
-- **Jenkins** → Used for **visualization-ui** (Spring Boot).
-- **ArgoCD** → Deploys updated Kubernetes manifests from **GitHub**.
+* Git
+* Docker and Docker Compose
+* Python
+* Node.js and npm
+* Go
+* Access to the required databases and messaging services
 
-Example `.gitlab-ci.yml` for **alerting-service**:
+### Clone the Repository
 
-```yaml
-workflow:
-  rules:
-    - changes:
-        - services/alerting-service/**
-      when: always
+```bash
+git clone https://github.com/heshmasree2809/DevOps-Monitoring-Microservices-with-CI-CD.git
+cd DevOps-Monitoring-Microservices-with-CI-CD
 ```
 
-This ensures that only **modified services** trigger their respective CI/CD pipelines.
+### Configure the Environment
 
----
+1. Review the service directories and configuration files.
+2. Install the dependencies required by each service.
+3. Configure database connections and messaging endpoints.
+4. Set the required environment variables.
+5. Review the Docker and CI/CD configurations before running the application.
 
-## **Installation & Setup**
+### Run the Project
 
-### **1. Clone the Repository**
-
-```sh
-git clone <repository-url>
-cd devops-monitoring
-```
-
-### **2. Set Up Environment Variables**
-
-```sh
-cp .env.example .env
-# Modify environment variables accordingly
-```
-
-### **3. Build & Start Services**
-
-Using **Docker Compose**:
-
-```sh
-docker-compose up --build
-```
-
-Using **manual Docker commands**:
-
-```sh
-docker build -t metrics-service ./services/metrics-service
-...
-docker run -p 8000:8000 metrics-service
-```
-
----
-
-## **Contributions & Roadmap**
-
-- ✅ **Phase 1**: Core microservices implementation (Metrics, Logs, Alerting, Visualization UI)
-- ✅ **Phase 2**: CI/CD pipeline integration with GitHub, GitLab, and Jenkins
-- 🔄 **Phase 3**: Implement Kubernetes-based deployment with ArgoCD
-- 🚀 **Phase 4**: Improve monitoring & logging (Prometheus + ELK Stack)
-
-Contributions are welcome! Please open a **pull request** or create an **issue** for discussions.
-
----
-
-## **License**
-
-This project is **open-source** under the MIT License. Feel free to fork, modify, and use it as needed.
-
----
-
-## **Contact & Portfolio**
-
-This project is maintained by **Jeremiah Onwoh (JerryBen)**. Connect with me:
-
-- **LinkedIn**: [linkedin.com/in/jerrybenoc](https://linkedin.com/in/jerrybenoc)
-- **GitHub**: [github.com/jerrybenoc](https://github.com/jerryben)
-- **GitLab**: [gitlab.com/jerrybenoc](https://gitlab.com/jerryben)
-
-🚀 **Let's build something great together!**
-
+If a valid Docker Compose configuration is available at the repository root, start the configured
