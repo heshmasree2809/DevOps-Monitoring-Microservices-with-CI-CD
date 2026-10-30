@@ -32,7 +32,6 @@ DevOps Monitoring Microservices with CI/CD is a microservices-based project focu
 | GitOps                | Argo CD                                      |
 | Version Control       | Git, GitHub                                  |
 
-*The listed technologies should be verified against the actual implementation and configuration files.*
 
 ## Project Architecture
 
