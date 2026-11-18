@@ -2,7 +2,7 @@
 
 # Build React frontend
 echo "Building React frontend..."
-cd ./visualization-ui/frontend || exi
+cd ./visualization-ui/frontend || exit
 npm install
 npm run build
 
